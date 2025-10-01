@@ -1,11 +1,12 @@
 const request = require ('supertest')
 const { expect } = require ('chai')
+require('dotenv').config()
 
 // Describe possui dois parâmetros sendo eles o nome do teste e a função function ou arrowfunction () => {}
 describe('Login', () => {
     describe('POST/Login', () => {
         it('Deve retornar 400 com mensagem de erro em string quando usar credenciais inválidas', async() => {
-            const response = await request('http://localhost:3000') 
+            const response = await request(process.env.BASE_URL) 
                 .post ('/login')
                 .set ('Content-Type', 'application/json')
                 .send ({ 
