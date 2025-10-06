@@ -16,5 +16,18 @@ describe('Login', () => {
             expect(response.status).to.equal(200);
             expect(response.body.token).to.be.a('string');
         });  
+
+        it('Deve retornar 400 com mensagem de erro em string quando usar credenciais inválidas', async() => {
+                    const response = await request(process.env.BASE_URL) 
+                        .post ('/login')
+                        .set ('Content-Type', 'application/json')
+                        .send ({ 
+                            'username': 'julio.lima',
+                            'senha': ''
+                        })
+                    expect(response.status).to.equal(400);
+                    expect(response.body).to.have.property('error'); 
+                    expect(response.body.error).to.be.a('string');  
+                });
     });
 });
